@@ -1,0 +1,42 @@
+.btn-primary {
+
+color: #fff;
+
+background-color: teal;
+
+border-color: white;
+
+margin-bottom: 5px;
+
+}
+
+.btn-primary:hover {
+    color: #27A967;
+    background-color: pink;
+    border-color: white;
+}
+
+body {
+    background: #3E4649;
+    color: #f7f7f7;
+    font-family: 'Montserrat', serif;
+}
+
+.card-body {
+    background: #3E4649;
+}
+
+
+h1, h2 {
+    font-weight: bold;
+}
+
+p {
+    font-size: 16px;
+    color: #cdcdcd;
+}
+
+.table-dark {
+    color: #fff;
+    background-color: #3E4649;
+}

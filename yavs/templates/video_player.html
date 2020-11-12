@@ -1,0 +1,53 @@
+{% extends "parent.html" %}
+{% load static %}
+<!-- If every view had some sort of "logged-in bit/indicator passed in, we could extend a different parent for logged out and logged in. " -->
+
+{% block title %}
+{{ video.title }} 
+{% endblock %}
+
+{% block body %}
+<h1>Yet Another Video Site</h1><br>
+<br><br>
+<video width = "1000" height="750" controls>
+    <source src="{{ video.path }}" type="video/mp4">
+</video>
+
+<br><br>
+<h2>{{ video.title }}</h2>
+<p>{{ video.description }}</p>
+<br>
+
+<h4>Comments:</h4>
+
+{% if not comments %}
+    <p>Be the first to add a comment!</p>
+{% else %}    
+    {% for comment in comments %}
+    <br>
+    <div class="media border p-3">
+        <img src="{% static 'img/img_avatar3.png' %}" alt="{{ comment.user }}" class="mr-3 mt-3 square" style="width:60px;">
+        <div class="media-body">
+        <h4>{{ comment.user }} <small><i>at {{ comment.born_on }}:</i></small></h4>
+        <p>{{ comment.text }}</p>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<br>
+<!-- Show comment form + button only if user is logged in, else no form passed in. -->
+{% if user.is_authenticated %}
+    <form action="/comment" method="POST">
+    {% csrf_token %}
+        <table class="table">{{ form.as_table }}</table>
+        <input type="hidden" name="video" value="{{video.id}}"
+        <br>
+        <button type="submit" class="btn btn-primary">Submit Comment</button>
+    </form>
+{% else %}
+    You must be signed in to add a comment. <br><br>
+{% endif %}
+
+{% endblock %}
+

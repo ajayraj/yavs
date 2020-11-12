@@ -1,0 +1,19 @@
+{% extends "parent.html" %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block body %}
+<h1>Yet Another Video Site</h1><br>
+Sign Up for YAVS<br>
+{{ serve }}
+<br>
+<form action="sign_up" method="POST">
+    {% csrf_token %}
+    <table class="table TABLE-DARK">{{ form.as_table }}</table>
+    <br>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+{% endblock %}
+

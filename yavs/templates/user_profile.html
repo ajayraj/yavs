@@ -1,0 +1,21 @@
+{% extends "parent.html" %}
+
+{% block title %}
+User: {{ target }}
+{% endblock %}
+
+{% block body %}
+<h1>Yet Another Video Site</h1><br>
+
+{% for video in user_uploaded %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">{{ video.title }}</h1>
+          <p style="font-size: 12px; color:gray;"><a href="/user_profile/{{ video.uploaded_by}}">Uploaded by {{ video.uploaded_by }} on {{ video.born_on }}</a></p>
+          <p style="text-align: right"><a href='/video_player/{{ video.id }}'>Watch Video</a></p>
+        </div>
+</div>
+{% endfor %}
+
+{{ serve }}
+{% endblock %}

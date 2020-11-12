@@ -1,0 +1,17 @@
+{% extends "parent.html" %}
+
+{% block title %}
+Sign In
+{% endblock %}
+
+{% block body %}
+<h1>Yet Another Video Site</h1><br>
+<br>
+<form action="sign_in" method="POST">
+    {% csrf_token %}
+    <table class="table table-dark">{{ form.as_table }}</table>
+    <br>
+    <button type="submit" class="btn btn-primary">Sign In</button>
+</form>
+{% endblock %}
+
