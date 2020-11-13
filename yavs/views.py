@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Video, Comment
 from pathlib import Path
+from django.conf import settings
 import string, random, os
 #For development
 from wsgiref.util import FileWrapper
@@ -57,7 +58,7 @@ class UploadVideo(View):
             path = prefix + upload_vid.name
 
             
-            fs = FileSystemStorage(location = os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            fs = FileSystemStorage(location = settings.MEDIA_ROOT)
             filename = fs.save(path, upload_vid)
             file_url = fs.url(filename)
 
@@ -155,9 +156,15 @@ class VideoPlayer(View):
     def get(self, request, id):
         # most_recent = Video.objects.order_by('-born_on')[:10] # grab 10 most recent videos
         # Grab information for video by ID
+        media_dir = settings.MEDIA_URL
         video_to_serve = Video.objects.get(id=id)
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        video_to_serve.path = "http://localhost:8000/get_video/" + video_to_serve.path
+        #BASE_DIR = Path(__file__).resolve().parent.parent
+        #video_to_serve.path = "http://yavs.ajayraj.co/get_video/" + video_to_serve.path
+        video_to_serve.path = media_dir + video_to_serve.path
+        
+        print("PATH THAT WILL BE PASSED TO VIDEO VIEW: ", video_to_serve.path)
+        print("CURRENT WORKING DIRECTORY: ", os.getcwd())
+
         context = {'video':video_to_serve}
         context['comments'] = Comment.objects.filter(video=video_to_serve)
 

@@ -19,6 +19,7 @@ import debug_toolbar
 from django.conf import settings
 from django.urls import include, path
 from yavs.views import Home, UploadVideo, SignIn, SignUp, VideoPlayer, PostComment, VideoGrab, SignOut, UserProfile
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,7 +34,7 @@ urlpatterns = [
     path('sign_out', SignOut.as_view()),
     path('user_profile/<str:user_requested>', UserProfile.as_view())
     #path('upload_video/', UploadVideoView),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Adding debug_toolbar
 
