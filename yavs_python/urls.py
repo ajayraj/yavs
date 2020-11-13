@@ -18,7 +18,7 @@ from django.urls import path
 import debug_toolbar
 from django.conf import settings
 from django.urls import include, path
-from yavs.views import Home, UploadVideo, SignIn, SignUp, VideoPlayer, PostComment, VideoGrab, SignOut, UserProfile
+from yavs.views import Home, UploadVideo, SignIn, SignUp, VideoPlayer, PostComment, SignOut, UserProfile
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -30,11 +30,12 @@ urlpatterns = [
     path('sign_up', SignUp.as_view()),
     path('video_player/<int:id>', VideoPlayer.as_view()),
     path('comment', PostComment.as_view()),
-    path('get_video/<file_name>', VideoGrab.as_view()),
     path('sign_out', SignOut.as_view()),
-    path('user_profile/<str:user_requested>', UserProfile.as_view())
-    #path('upload_video/', UploadVideoView),
+    path('user_profile/<str:user_requested>', UserProfile.as_view()),
+    path('django-rq/', include('django_rq.urls')),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 # Adding debug_toolbar
 

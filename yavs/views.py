@@ -7,7 +7,9 @@ from django.contrib.auth.models import User
 from .models import Video, Comment
 from pathlib import Path
 from django.conf import settings
+from .tasks import generate_insights_for_video
 import string, random, os
+
 #For development
 from wsgiref.util import FileWrapper
 
@@ -70,6 +72,9 @@ class UploadVideo(View):
             print("CURRENT DIRECTORY FOR VID UPLOAD:", Path.cwd())
             new_video.save()
 
+            # async insight generation
+            generate_insights_for_video.delay(new_video.id)
+
             # redirects to video page
             return HttpResponseRedirect("/video_player/{}".format(new_video.id))
 
@@ -104,7 +109,7 @@ class SignIn(View):
                 print("Successful login")
                 return HttpResponseRedirect('/')
             else:
-                return HttpResponseRedirect('login')
+                return HttpResponseRedirect('sign_in')
 
         print(request)
         return HttpResponse("This is the SignIn View POST Request")
@@ -140,26 +145,14 @@ class SignUp(View):
         print(request)
         return HttpResponse("This is the SignUp View POST Request")
 
-# File Media Server for development
-class VideoGrab(View):
-    def get(self, request, file_name):
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        video_to_serve = FileWrapper(open(str(BASE_DIR) + '/' + file_name, 'rb'))
-        response = HttpResponse(video_to_serve, content_type='video/mp4')
-        response['Content-Disposition'] = 'attachment; filename={}'.format(file_name)
-        return response
-
 
 class VideoPlayer(View):
     template_name = "video_player.html"
 
     def get(self, request, id):
-        # most_recent = Video.objects.order_by('-born_on')[:10] # grab 10 most recent videos
         # Grab information for video by ID
         media_dir = settings.MEDIA_URL
         video_to_serve = Video.objects.get(id=id)
-        #BASE_DIR = Path(__file__).resolve().parent.parent
-        #video_to_serve.path = "http://yavs.ajayraj.co/get_video/" + video_to_serve.path
         video_to_serve.path = media_dir + video_to_serve.path
         
         print("PATH THAT WILL BE PASSED TO VIDEO VIEW: ", video_to_serve.path)
