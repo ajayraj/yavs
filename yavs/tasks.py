@@ -1,7 +1,56 @@
 from django_rq import job
 from .models import Video
-import logging
+import os, sys, logging
+import speech_recognition as sr
+
 logger = logging.getLogger(__name__)
+
+def video_to_audio(file_path):
+    try:
+        file, extension = os.path.splitext(file_path)
+        os.system('ffmpeg -i {file}{ext} {file}.wav'.format(file=file, ext=extension))
+        print('"{}" converted to WAV'.format(file_path))
+        return "{}.wav".format(file)
+
+    except OSError as err:
+        print(err.reason)
+        exit(1)
+
+def chunked_audio_to_text(file_path):
+    r = sr.Recognizer()
+    
+    audio_file = sr.AudioFile(file_path)
+    transcribed_text = ""
+    consecutive_error = 0
+    
+    with audio_file as source:
+        while(True):
+            print("New chunk creation attempted")
+            audio = r.record(source, duration=30)
+            
+            try:
+                chunk_transcribed = r.recognize_google(audio)
+                transcribed_text += " " + chunk_transcribed
+                consecutive_error = 0
+                
+            except sr.UnknownValueError:
+                print("Could not understand audio.")
+                consecutive_error += 1
+                if (consecutive_error >= 3):
+                    break
+                    
+            except sr.RequestError as e:
+                print("Could not request results.")
+                break
+
+    return transcribed_text
+
+def video_to_text(file_path):
+    response = chunked_audio_to_text(video_to_audio(file_path))
+    if not response:
+        return (False, response)
+    else:
+        return (True, response)
 
 @job
 def generate_insights_for_video(video_id):
