@@ -2,7 +2,10 @@ from django_rq import job
 from .models import Video
 from django.conf import settings
 import os, sys, logging
+import spacy
 import speech_recognition as sr
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +56,38 @@ def video_to_text(file_path):
     else:
         return (True, response)
 
+def text_analysis(transcribed_content):
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(transcribed_content)
+    # Removing stopwords
+    token_list = [token for token in doc if not token.is_stop]
+    # Can lemmatize
+    lemma_list = [token.lemma_ for token in token_list]
+    
+    text = " ".join(map(str, lemma_list))
+    return text
+
+def plot_wordcloud(cleaned_string):
+    wordcloud = WordCloud(width = 800, height = 800, 
+                          background_color ='white',
+                          stopwords=[],
+                          min_font_size = 10).generate(sample_cleaned) 
+
+    plt.figure(figsize = (8, 8), facecolor = None) 
+    plt.imshow(wordcloud) 
+    plt.axis("off") 
+    plt.tight_layout(pad = 0) 
+    plt.show()
+    return wordcloud
+
+def video_to_wordcloud(file_path):
+    text_content = video_to_text(file_path)
+    if (text_content[0]):
+        cleaned_text = text_analysis(text_content[1])
+        wc = plot_wordcloud(cleaned_text)
+        file, extension = os.path.splitext(file_path)
+        wc.to_file("{}.png".format(file))
+
 @job
 def generate_insights_for_video(video_id):
     logger.info("Generating Insights") 
@@ -76,6 +111,11 @@ def generate_insights_for_video(video_id):
     response = video_to_text(str(video.path))
     if (response[0]):
         Video.objects.filter(id=video_id).update(sentiment="INSIGHT_ABLE_TO_GENERATE")
+        cleaned_text = text_analysis(text_content[1])
+        wc = plot_wordcloud(cleaned_text)
+        file, extension = os.path.splitext(file_path)
+        wc.to_file("{}.png".format(file))
+        
     else:
         Video.objects.filter(id=video_id).update(sentiment="INSIGHT_NOT_ABLE_TO_GENERATE")
 

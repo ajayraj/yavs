@@ -18,7 +18,7 @@ from django.urls import path
 import debug_toolbar
 from django.conf import settings
 from django.urls import include, path
-from yavs.views import Home, UploadVideo, SignIn, SignUp, VideoPlayer, PostComment, SignOut, UserProfile
+from yavs.views import Home, UploadVideo, SignIn, SignUp, VideoPlayer, PostComment, SignOut, UserProfile, ViewInsights
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     path('sign_in', SignIn.as_view()),
     path('sign_up', SignUp.as_view()),
     path('video_player/<int:id>', VideoPlayer.as_view()),
+    path('view_insights/<int:id>', ViewInsights.as_view()),
     path('comment', PostComment.as_view()),
     path('sign_out', SignOut.as_view()),
     path('user_profile/<str:user_requested>', UserProfile.as_view()),

@@ -1,0 +1,21 @@
+{% extends "parent.html" %}
+{% load static %}
+<!-- If every view had some sort of "logged-in bit/indicator passed in, we could extend a different parent for logged out and logged in. " -->
+
+{% block title %}
+Insights for {{ video.title }} 
+{% endblock %}
+
+{% block body %}
+<h1>Yet Another Video Site</h1><br>
+
+<br><br>
+<h2>{{ video.title }}</h2>
+<br>
+
+<h4>Word Cloud:</h4>
+<br>
+<img src="{{ cloud_path }}">
+
+{% endblock %}
+
