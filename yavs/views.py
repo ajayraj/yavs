@@ -202,3 +202,17 @@ class UserProfile(View):
         user_uploaded = Video.objects.filter(uploaded_by=target.id).order_by('-born_on')
 
         return render(request, self.template_name, {'target' : user_requested, 'user_uploaded': user_uploaded})
+
+class ViewInsights(View):
+    template_name = "view_insights.html"
+
+    def get(self, request, id):
+        media_dir = settings.MEDIA_URL
+        video_of_insight = Video.objects.get(id=id)
+        file, extension = os.path.splitext(video_of_insight.path)
+        wordcloud_path = media_dir + file + ".png"
+        print("PATH THAT WILL BE PASSED TO INSIGHT VIEW: ", wordcloud_path)
+        context = { 'cloud_path': wordcloud_path, 'title': video_of_insight.title }
+
+        
+        return render(request, self.template_name, context)
