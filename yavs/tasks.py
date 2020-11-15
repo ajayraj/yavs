@@ -71,7 +71,7 @@ def plot_wordcloud(cleaned_string):
     wordcloud = WordCloud(width = 800, height = 800, 
                           background_color ='white',
                           stopwords=[],
-                          min_font_size = 10).generate(sample_cleaned) 
+                          min_font_size = 10).generate(cleaned_string) 
 
     plt.figure(figsize = (8, 8), facecolor = None) 
     plt.imshow(wordcloud) 
@@ -111,9 +111,9 @@ def generate_insights_for_video(video_id):
     response = video_to_text(str(video.path))
     if (response[0]):
         Video.objects.filter(id=video_id).update(sentiment="INSIGHT_ABLE_TO_GENERATE")
-        cleaned_text = text_analysis(text_content[1])
+        cleaned_text = text_analysis(response[1])
         wc = plot_wordcloud(cleaned_text)
-        file, extension = os.path.splitext(file_path)
+        file, extension = os.path.splitext(video.path)
         wc.to_file("{}.png".format(file))
         
     else:
