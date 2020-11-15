@@ -1,5 +1,6 @@
 from django_rq import job
 from .models import Video
+from django.conf import settings
 import os, sys, logging
 import speech_recognition as sr
 
@@ -67,4 +68,15 @@ def generate_insights_for_video(video_id):
     #video = Video.objects.get(id=video_id)
     #video.sentiment = "test"
     #video.save()
-    Video.objects.filter(id=video_id).update(sentiment="test")
+    #media_dir = settings.MEDIA_URL
+    video = Video.objects.get(id=video_id)
+    curr_path = os.getcwd()
+    Video.objects.filter(id=video_id).update(sentiment=curr_path)
+    os.chdir("/home/sum/projects/yavs/media")
+    response = video_to_text(str(video.path))
+    if (response[0]):
+        Video.objects.filter(id=video_id).update(sentiment="INSIGHT_ABLE_TO_GENERATE")
+    else:
+        Video.objects.filter(id=video_id).update(sentiment="INSIGHT_NOT_ABLE_TO_GENERATE")
+
+    os.chdir("/home/sum/projects/yavs")
