@@ -20,11 +20,14 @@ def video_to_audio(file_path, video_id):
     if path.exists(audio_path):
         return audio_path
     else:
-        Video.objects.filter(id=video_id).update(sentiment="NO_AUDIO")
-        sys.exit()
+        return -1
 
 
 def chunked_audio_to_text(file_path):
+
+    if file_path is -1:
+        return -1
+
     r = sr.Recognizer()
     
     audio_file = sr.AudioFile(file_path)
@@ -56,9 +59,11 @@ def chunked_audio_to_text(file_path):
 def video_to_text(file_path, video_id):
     response = chunked_audio_to_text(video_to_audio(file_path, video_id))
     if not response:
-        return (False, response)
+        return (0, response)
+    else if response is -1:
+        return (-1, response)
     else:
-        return (True, response)
+        return (1, response)
 
 def text_analysis(transcribed_content):
     nlp = spacy.load("en_core_web_sm")
@@ -106,13 +111,16 @@ def generate_insights_for_video(video_id):
     
     response = video_to_text(str(video.path), video_id)
 
-    if (response[0]):
+    if (response[0] == 1):
         Video.objects.filter(id=video_id).update(sentiment="INSIGHT_ABLE_TO_GENERATE")
         cleaned_text = text_analysis(response[1])
         wc = plot_wordcloud(cleaned_text)
         file, extension = os.path.splitext(video.path)
         wc.to_file("{}.png".format(file))
         
+    else if (response[0] == -1):
+        Video.objects.filter(id=video_id).update(sentiment="NO_AUDIO")
+  
     else:
         Video.objects.filter(id=video_id).update(sentiment="INSIGHT_NOT_ABLE_TO_GENERATE")
 
