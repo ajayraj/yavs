@@ -6,17 +6,6 @@ Home
 
 {% block body %}
 <h1>Yet Another Video Site</h1><br>
-<div class="card-deck">
-{% for video in most_recent %}
-  <div class="card">
-    <div class="card-body text-center">
-      <h4 class="card-title">{{ video.title }}</h2>
-      <p style="font-size: 12px; color:gray;"><a href="/user_profile/{{ video.uploaded_by}}">Uploaded by {{ video.uploaded_by }} on {{ video.born_on }}</a></p>
-      <p style="text-center"><a href='/video_player/{{ video.id }}'>Watch Video</a></p>
-    </div>
-  </div>
-{% endfor %}
-</div>
 
 <div class="container">
   <div class="card-columns">
@@ -35,4 +24,5 @@ Home
   {% endfor %}
   </div>
 </div>
+
 {% endblock %}
