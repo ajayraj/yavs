@@ -40,3 +40,42 @@ p {
     color: #fff;
     background-color: #3E4649;
 }
+
+.card-group {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: lightgrey;
+  }
+  
+  .card img {
+    width: 100%;
+  }
+  
+  .card {
+    background-color: cornflowerblue;
+    width: 30%;
+    margin: 0px;
+    flex: 2;
+    border: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-block {
+    padding: 10px;
+    background-color: #fff;
+    flex: 1;        
+  }
+  
+  .card-title {
+    font-size: 18px;
+    color: grey;
+    font-family: verdana, sans;
+  }
+  
+  .card-footer {
+    padding: 15px;
+    border-top: 1px solid lightgrey;
+    background-color: lightgrey;
+  }

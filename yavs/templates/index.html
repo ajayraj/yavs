@@ -17,4 +17,22 @@ Home
   </div>
 {% endfor %}
 </div>
+
+<div class="container">
+  <div class="card-group">
+  {% for video in most_recent %}
+    <div class="card">
+      <img class="card-img-top" src="https://www.washingtonpost.com/resizer/TXJKur-cQ3m4AF9lqk_kkjfemkk=/3x2/www.washingtonpost.com/pb/resources/img/spacer.gif" alt="Card image cap">
+      <div class="card-block">
+        <h4 class="card-title">{{ video.title }}</h4>
+        <p class="card-text"><a href="/user_profile/{{ video.uploaded_by }}">Uploaded by {{ video.uploaded_by }}</a></p>
+        <p class="card-text"><a href='/video_player/{{ video.id }}'>Watch Video</a></p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Uploaded on: {{ video.born_on }}</small>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
 {% endblock %}
