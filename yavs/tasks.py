@@ -1,6 +1,7 @@
 from django_rq import job
 from .models import Video
 from django.conf import settings
+from os import path
 import os, sys, logging
 import spacy
 import speech_recognition as sr
