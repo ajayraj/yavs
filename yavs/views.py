@@ -8,30 +8,16 @@ from .models import Video, Comment
 from pathlib import Path
 from django.conf import settings
 from .tasks import generate_insights_for_video
-import string, random, os
+import string, random, os, re
 
 #For development
 from wsgiref.util import FileWrapper
-
-# For Test:
-#   Use workaround to make files downloadable via get request through filegrab view
-#   Request from own public endpoint?
-#   Convert to proper media model and hosted static server when deploying
-
-# TO FIX FOR PROD:
-#   Serve static/media files from NGINX server
-#   Media: user uploaded
-#       https://overiq.com/django-1-10/handling-media-files-in-django/
-#       https://docs.djangoproject.com/en/3.1/howto/static-files/deployment/
-#   Asynchronous tasks: sentiment analysis + visualizations (use Celery?)
-#       https://overiq.com/django-1-11/asynchronous-tasks-with-celery/
-#   DATABASE: Switch from sqlite3 to postgresql
 
 class Home(View):
     template_name = "index.html"
     def get(self, request):
 
-        most_recent = Video.objects.order_by('-born_on')[:12] # grab 10 most recent videos
+        most_recent = Video.objects.order_by('-born_on')[:12] # grab 12 most recent videos
 
         return render(request, self.template_name, {'most_recent': most_recent})
 
@@ -57,7 +43,9 @@ class UploadVideo(View):
             upload_vid = form.cleaned_data['file']
 
             prefix = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-            path = prefix + upload_vid.name
+            pattern = re.compile(r'\s+')
+            stripped_name = re.sub(pattern, '', upload_vid.name)
+            path = prefix + stripped_name
 
             
             fs = FileSystemStorage(location = settings.MEDIA_ROOT)
