@@ -11,7 +11,9 @@ Home
   <div class="card-columns">
   {% for video in most_recent %}
     <div class="card">
-      <img class="card-img-top" src="https://www.wyzowl.com/wp-content/uploads/2019/09/YouTube-thumbnail-size-guide-best-practices-top-examples.png" alt="Card image cap">
+      {% file_path = video.path|split:".") %}
+      {% tb_path = file_path[0] + "_tb.png" %}
+      <img class="card-img-top" src="/media/{{ tb_path }}" alt="Card image cap">
       <div class="card-block">
         <h4 class="card-title"><a href='/video_player/{{ video.id }}'>{{ video.title }}</a></h4>
         <p class="card-text"><a href="/user_profile/{{ video.uploaded_by }}">Uploaded by {{ video.uploaded_by }}</a></p>

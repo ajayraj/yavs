@@ -7,6 +7,7 @@ import spacy
 import speech_recognition as sr
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+import subprocess
 
 logger = logging.getLogger(__name__)
 
@@ -125,3 +126,12 @@ def generate_insights_for_video(video_id):
         Video.objects.filter(id=video_id).update(sentiment="INSIGHT_NOT_ABLE_TO_GENERATE")
 
     os.chdir("/home/sum/projects/yavs")
+
+@job
+def generate_thumbnail(video_id):
+    video = Video.objects.get(id=video_id)
+    os.chdir("/home/sum/projects/uavs/media")
+    file, extension = os.path.splitext(video.path)
+    thumbnail_path = file + "_tb.png"
+
+    subprocess.call(['ffmpeg', '-i', video.path, '-ss', '00:00:00.000', '-vframes', '1', thumbnail_path])

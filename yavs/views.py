@@ -63,6 +63,9 @@ class UploadVideo(View):
             # async insight generation
             generate_insights_for_video.delay(new_video.id)
 
+            # async thumbnail generation
+            generate_thumbnail.delay(new_video.id)
+
             # redirects to video page
             return HttpResponseRedirect("/video_player/{}".format(new_video.id))
 
