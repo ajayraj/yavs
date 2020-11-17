@@ -25,7 +25,7 @@ def video_to_audio(file_path, video_id):
 
 def chunked_audio_to_text(file_path):
 
-    if file_path is -1:
+    if file_path == -1:
         return -1
 
     r = sr.Recognizer()
@@ -60,7 +60,7 @@ def video_to_text(file_path, video_id):
     response = chunked_audio_to_text(video_to_audio(file_path, video_id))
     if not response:
         return (0, response)
-    else if response is -1:
+    elif response == -1:
         return (-1, response)
     else:
         return (1, response)
@@ -118,7 +118,7 @@ def generate_insights_for_video(video_id):
         file, extension = os.path.splitext(video.path)
         wc.to_file("{}.png".format(file))
         
-    else if (response[0] == -1):
+    elif (response[0] == -1):
         Video.objects.filter(id=video_id).update(sentiment="NO_AUDIO")
   
     else:
