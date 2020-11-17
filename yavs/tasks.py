@@ -10,17 +10,18 @@ import matplotlib.pyplot as plt
 logger = logging.getLogger(__name__)
 
 def video_to_audio(file_path, video_id):
-    try:
-        file, extension = os.path.splitext(file_path)
-        os.system('ffmpeg -i {file}{ext} {file}.wav'.format(file=file, ext=extension))
-        print('"{}" converted to WAV'.format(file_path))
+    file, extension = os.path.splitext(file_path)
+    os.system('ffmpeg -i {file}{ext} {file}.wav'.format(file=file, ext=extension))
+    print('"{}" converted to WAV'.format(file_path))
 
-    except OSError as err:
-        print(err.reason)
+    audio_path = "{}.wav".format(file)
+
+    if path.exists(audio_path):
+        return audio_path
+    else:
         Video.objects.filter(id=video_id).update(sentiment="NO_AUDIO")
-        exit(1)
-    
-    return "{}.wav".format(file)
+        sys.exit()
+
 
 def chunked_audio_to_text(file_path):
     r = sr.Recognizer()
