@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from .models import Video, Comment
 from pathlib import Path
 from django.conf import settings
-from .tasks import generate_insights_for_video
+from .tasks import generate_insights_for_video, generate_thumbnail
 import string, random, os, re
 
 #For development
