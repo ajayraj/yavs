@@ -9,16 +9,18 @@ import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
 
-def video_to_audio(file_path):
+def video_to_audio(file_path, video_id):
     try:
         file, extension = os.path.splitext(file_path)
         os.system('ffmpeg -i {file}{ext} {file}.wav'.format(file=file, ext=extension))
         print('"{}" converted to WAV'.format(file_path))
-        return "{}.wav".format(file)
 
     except OSError as err:
         print(err.reason)
+        Video.objects.filter(id=video_id).update(sentiment="NO_AUDIO")
         exit(1)
+    
+    return "{}.wav".format(file)
 
 def chunked_audio_to_text(file_path):
     r = sr.Recognizer()
@@ -49,8 +51,8 @@ def chunked_audio_to_text(file_path):
 
     return transcribed_text
 
-def video_to_text(file_path):
-    response = chunked_audio_to_text(video_to_audio(file_path))
+def video_to_text(file_path, video_id):
+    response = chunked_audio_to_text(video_to_audio(file_path, video_id))
     if not response:
         return (False, response)
     else:
@@ -92,23 +94,16 @@ def video_to_wordcloud(file_path):
 def generate_insights_for_video(video_id):
     logger.info("Generating Insights") 
     
-    # Steps:
-
-    # Grab audio from video
-
-    # Upload audio to api to transcribe to text
-
-    # Use text for NLP analyses, fill out sentiment field, generate visualization pics for new "insights" view, etc.
     print("GENERATE INSIGHT FUNCTION CALLED")
-    #video = Video.objects.get(id=video_id)
-    #video.sentiment = "test"
-    #video.save()
-    #media_dir = settings.MEDIA_URL
+
+    # Get video and update sentiment field to current working directory, useful for debug
     video = Video.objects.get(id=video_id)
     curr_path = os.getcwd()
     Video.objects.filter(id=video_id).update(sentiment=curr_path)
     os.chdir("/home/sum/projects/yavs/media")
-    response = video_to_text(str(video.path))
+    
+    response = video_to_text(str(video.path), video_id)
+
     if (response[0]):
         Video.objects.filter(id=video_id).update(sentiment="INSIGHT_ABLE_TO_GENERATE")
         cleaned_text = text_analysis(response[1])
