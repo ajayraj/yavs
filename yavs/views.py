@@ -31,7 +31,7 @@ class Home(View):
     template_name = "index.html"
     def get(self, request):
 
-        most_recent = Video.objects.order_by('-born_on')[:10] # grab 10 most recent videos
+        most_recent = Video.objects.order_by('-born_on')[:30] # grab 10 most recent videos
 
         return render(request, self.template_name, {'most_recent': most_recent})
 
