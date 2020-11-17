@@ -41,7 +41,7 @@ p {
     background-color: #3E4649;
 }
 
-.card-group {
+.card-columns {
     display: -webkit-flex;
     display: flex;
     flex-wrap: wrap;
