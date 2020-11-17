@@ -17,12 +17,11 @@
 <h2>{{ video.title }}</h2>
 <p>{{ video.description }}</p>
 {% if video.sentiment == "INSIGHT_ABLE_TO_GENERATE" %}
-
     <p style="text-center"><a href='/view_insights/{{ video.id }}'>View Insights</a></p>
     <br>
-{% else if video.sentiment == "INSIGHT_NOT_ABLE_TO_GENERATE" %}
+{% elif video.sentiment == "INSIGHT_NOT_ABLE_TO_GENERATE" %}
     <p>Cannot Generate Insight: Music/No Words Detected</p>
-{% else if video.sentiment == "NO_AUDIO" %}
+{% elif video.sentiment == "NO_AUDIO" %}
     <p>Cannot generate insight - Video has no audio</p>
 {% else %}
     Insight generation in progress...
