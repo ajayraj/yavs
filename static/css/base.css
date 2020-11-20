@@ -1,7 +1,16 @@
 .btn-primary {
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  text-align:center;
+  transition: 0.2s ease all;
+  margin:0 0.3em 0.3em 0;
   color: #fff;
   background-color: #8f019c
-  margin-bottom: 5px
 }
 .btn-primary:hover {
   color: #fff;
