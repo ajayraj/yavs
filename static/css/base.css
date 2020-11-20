@@ -1,23 +1,26 @@
 .btn-primary {
   display:inline-block;
   padding:0.35em 1.2em;
-  border-radius:0.12em;
+  border-radius:0.3em;
   box-sizing: border-box;
   text-decoration:none;
   font-family:'Roboto',sans-serif;
-  font-weight:300;
+  font-weight:450;
   text-align:center;
-  transition: 0.2s ease all;
+  transition: 0.5s ease all;
   margin:0 0.3em 0.3em 0;
   color: #fff;
-  background-color: #8f019c
+  background-color: #462774
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #069c45
+  background-color: #2B806F
 }
 .btn-primary:focus {
-  background-color: #00af2c
+  background-color: #88CE6C
+}
+.btn-primary:active {
+  background-color: #88CE6C
 }
 
 
