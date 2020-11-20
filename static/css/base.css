@@ -22,6 +22,9 @@
 .btn-primary:active {
   background-color: #88CE6C
 }
+.btn-primary:active:focus {
+  background-color: #88CE6C
+}
 
 
 body {
