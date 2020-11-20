@@ -17,5 +17,9 @@ Insights for {{ video.title }}
 <br>
 <img src="{{ cloud_path }}">
 
+<br>
+<h4>Predicted Video Category: </h4>
+<p>{% which_category video.sentiment %}</p>
+
 {% endblock %}
 

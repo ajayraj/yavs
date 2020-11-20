@@ -78,7 +78,8 @@ p {
             
   }
   .card-block:hover {
-    background-color: #2B806F!important;
+    transition: 0.5s ease all;
+    background-color: #d271ff!important;
   }
   
   .card-title {

@@ -2,12 +2,14 @@ from django_rq import job
 from .models import Video
 from django.conf import settings
 from os import path
-import os, sys, logging
+import os, sys, logging, subprocess
 import spacy
 import speech_recognition as sr
-from wordcloud import WordCloud
 import matplotlib.pyplot as plt
-import subprocess
+from wordcloud import WordCloud
+from sklearn import svm
+from sklearn.feature_extraction.text import CountVectorizer
+
 
 logger = logging.getLogger(__name__)
 
@@ -66,8 +68,9 @@ def video_to_text(file_path, video_id):
     else:
         return (1, response)
 
+
 def text_analysis(transcribed_content):
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load("en_core_web_md")
     doc = nlp(transcribed_content)
     # Removing stopwords
     token_list = [token for token in doc if not token.is_stop]
@@ -98,6 +101,15 @@ def video_to_wordcloud(file_path):
         file, extension = os.path.splitext(file_path)
         wc.to_file("{}.png".format(file))
 
+def categorize_transcription(cleaned_text):
+    vectorizer = CountVectorizer(binary=True)
+    test_text = vectorizer.transform(cleaned_text)
+    pickle_path = "/home/sum/projects/yavs/yavs/video_classifier.pkl"
+    classify_svm = pickle.load(open(pickle_path, "rb"))
+    result = classify_svm.predict(test_text)
+    os.chdir("/home/sum/projects/yavs/media")
+    return result[0]
+
 @job
 def generate_insights_for_video(video_id):
     logger.info("Generating Insights") 
@@ -113,11 +125,14 @@ def generate_insights_for_video(video_id):
     response = video_to_text(str(video.path), video_id)
 
     if (response[0] == 1):
-        Video.objects.filter(id=video_id).update(sentiment="INSIGHT_ABLE_TO_GENERATE")
+        sentiment = "INSIGHT_ABLE_TO_GENERATE"
         cleaned_text = text_analysis(response[1])
+        category = categorize_transcription(cleaned_text)
+        sentiment = sentiment + "|" + category
         wc = plot_wordcloud(cleaned_text)
         file, extension = os.path.splitext(video.path)
         wc.to_file("{}.png".format(file))
+        Video.objects.filter(id=video_id).update(sentiment=sentiment)
         
     elif (response[0] == -1):
         Video.objects.filter(id=video_id).update(sentiment="NO_AUDIO")
