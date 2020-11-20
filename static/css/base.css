@@ -5,7 +5,7 @@
   text-align:center;
   transition: 0.5s ease all;
   color: #fff;
-  background-color: #462774!important;
+  background-color: #9737bd!important;
 }
 
 .btn-primary:hover {
@@ -74,7 +74,11 @@ p {
   .card-block {
     padding: 10px;
     background-color: #fff;
-    flex: 1;        
+    flex: 1;
+            
+  }
+  .card-block:hover {
+    background-color: #2B806F!important;
   }
   
   .card-title {
