@@ -9,16 +9,16 @@
   transition: 0.5s ease all;
   margin:0 0.3em 0.3em 0;
   color: #fff;
-  background-color: #462774;
+  background-color: #462774!important;
 }
 
 .btn-primary:hover {
-  color: #fff;
-  background-color: #2B806F;
+  color: #fff!important;
+  background-color: #2B806F!important;
 }
 
 .btn-primary:focus {
-  background-color: #88CE6C;
+  background-color: #88CE6C!important;
 }
 
 .btn-primary.active,
