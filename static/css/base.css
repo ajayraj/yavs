@@ -18,10 +18,13 @@
 .btn-primary:focus {
   background-color: #88CE6C
 }
-.btn-primary:active {
-  background-color: #88CE6C
+.btn-primary.active,
+.btn-primary:active,
+.btn-primary:active:focus
+ {
+  background-color: #88CE6CQ!important
 }
-.btn-primary:active:focus {
+ {
   background-color: #88CE6C
 }
 
