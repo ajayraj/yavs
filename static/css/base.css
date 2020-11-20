@@ -1,13 +1,9 @@
 .btn-primary {
-  display:inline-block;
-  padding:0.35em 1.2em;
-  box-sizing: border-box;
   text-decoration:none;
   font-family:'Roboto',sans-serif;
   font-weight:450;
   text-align:center;
   transition: 0.5s ease all;
-  margin:0 0.3em 0.3em 0;
   color: #fff;
   background-color: #462774!important;
 }
