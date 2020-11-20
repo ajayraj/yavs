@@ -11,21 +11,21 @@
   color: #fff;
   background-color: #462774;
 }
+
 .btn-primary:hover {
   color: #fff;
   background-color: #2B806F;
 }
+
 .btn-primary:focus {
   background-color: #88CE6C;
 }
+
 .btn-primary.active,
 .btn-primary:active,
 .btn-primary:active:focus
  {
   background-color: #88CE6CQ!important;
-}
- {
-  background-color: #88CE6C;
 }
 
 
