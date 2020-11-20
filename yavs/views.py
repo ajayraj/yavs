@@ -61,7 +61,7 @@ class UploadVideo(View):
             new_video.save()
 
             # thumbnail generation
-            generate_thumbnail.(new_video.id)
+            generate_thumbnail(new_video.id)
 
             # async insight generation
             generate_insights_for_video.delay(new_video.id)
