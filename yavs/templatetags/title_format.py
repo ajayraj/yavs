@@ -15,4 +15,7 @@ def which_category(response):
 
 @register.simple_tag
 def has_insights(response):
-    return "|" in response
+    if "|" in response:
+        return True
+    else:
+        return False
