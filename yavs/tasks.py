@@ -127,7 +127,7 @@ def generate_insights_for_video(video_id):
     if (response[0] == 1):
         sentiment = "INSIGHT_ABLE_TO_GENERATE"
         cleaned_text = text_analysis(response[1])
-        category = categorize_transcription(cleaned_text)
+        #category = categorize_transcription(cleaned_text)
         sentiment = sentiment + "|" + category
         wc = plot_wordcloud(cleaned_text)
         file, extension = os.path.splitext(video.path)
