@@ -8,7 +8,6 @@ import speech_recognition as sr
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from sklearn import svm
-from sklearn.feature_extraction.text import CountVectorizer
 
 
 logger = logging.getLogger(__name__)
@@ -102,11 +101,15 @@ def video_to_wordcloud(file_path):
         wc.to_file("{}.png".format(file))
 
 def categorize_transcription(cleaned_text):
-    vectorizer = CountVectorizer(binary=True)
-    test_text = vectorizer.transform(cleaned_text)
+    nlp = spacy.load("en_core_web_md")
     pickle_path = "/home/sum/projects/yavs/yavs/video_classifier.pkl"
-    classify_svm = pickle.load(open(pickle_path, "rb"))
-    result = classify_svm.predict(test_text)
+    classify_wv = pickle.load(open(pickle_path, "rb"))
+
+    test_x = [cleaned_text]
+    test_docs = [nlp(text) for text in test_x]
+    test_x_wv = [x.vector for x in test_docs]
+    
+    result = classify_wv.predict(test_x_wv)
     os.chdir("/home/sum/projects/yavs/media")
     return result[0]
 
@@ -126,8 +129,9 @@ def generate_insights_for_video(video_id):
 
     if (response[0] == 1):
         sentiment = "INSIGHT_ABLE_TO_GENERATE"
+        Video.objects.filter(id=video_id).update(sentiment=sentiment)
         cleaned_text = text_analysis(response[1])
-        #category = categorize_transcription(cleaned_text)
+        category = categorize_transcription(cleaned_text)
         sentiment = sentiment + "|" + category
         wc = plot_wordcloud(cleaned_text)
         file, extension = os.path.splitext(video.path)
