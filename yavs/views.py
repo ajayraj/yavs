@@ -60,11 +60,11 @@ class UploadVideo(View):
             print("CURRENT DIRECTORY FOR VID UPLOAD:", Path.cwd())
             new_video.save()
 
-            # thumbnail generation
-            generate_thumbnail(new_video.id)
-
             # async insight generation
             generate_insights_for_video.delay(new_video.id)
+
+            # async thumbnail generation
+            generate_thumbnail.delay(new_video.id)
 
             # redirects to video page
             return HttpResponseRedirect("/video_player/{}".format(new_video.id))
