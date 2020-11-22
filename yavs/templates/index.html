@@ -12,7 +12,7 @@ Home
   <div class="card-columns">
   {% for video in most_recent %}
     <div class="card">
-	    <img class="card-img-top" src="/media/{% tb_path video.path %}" alt="Card image cap">
+      <img class="card-img-top" src="/media/{{% tb_path video.path %}}" alt="Card image cap">
       <div class="card-block">
         <h4 class="card-title"><a href='/video_player/{{ video.id }}'>{{ video.title }}</a></h4>
         <p class="card-text"><a href="/user_profile/{{ video.uploaded_by }}">Uploaded by {{ video.uploaded_by }}</a></p>

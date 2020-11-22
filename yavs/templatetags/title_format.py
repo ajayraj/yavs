@@ -1,5 +1,5 @@
 from django import template
-from yavs.models import Video
+from .models import Video
 import os
 
 register = template.Library()
