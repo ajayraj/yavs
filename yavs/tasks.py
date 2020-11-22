@@ -142,6 +142,7 @@ def generate_insights_for_video(video_id):
 
     os.chdir("/home/sum/projects/yavs")
 
+@job
 def generate_thumbnail(video_id):
     video = Video.objects.get(id=video_id)
     os.chdir("/home/sum/projects/yavs/media")
