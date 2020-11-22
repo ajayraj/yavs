@@ -1,5 +1,4 @@
 from django import template
-from .models import Video
 import os
 
 register = template.Library()
