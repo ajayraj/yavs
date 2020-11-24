@@ -2,7 +2,7 @@ from django_rq import job
 from .models import Video
 from django.conf import settings
 from os import path
-import os, sys, logging, subprocess
+import os, sys, logging, subprocess, pickle
 import spacy
 import speech_recognition as sr
 import matplotlib.pyplot as plt
@@ -128,7 +128,7 @@ def generate_insights_for_video(video_id):
     response = video_to_text(str(video.path), video_id)
 
     if (response[0] == 1):
-        sentiment = "INSIGHT_ABLE_TO_GENERATE"
+        sentiment = "C"
         Video.objects.filter(id=video_id).update(sentiment=sentiment)
         cleaned_text = text_analysis(response[1])
         category = categorize_transcription(cleaned_text)

@@ -4,14 +4,14 @@
 <!-- If every view had some sort of "logged-in bit/indicator passed in, we could extend a different parent for logged out and logged in. " -->
 
 {% block title %}
-Insights for {{ video.title }} 
+Insights for {{ title }} 
 {% endblock %}
 
 {% block body %}
 <h1>Yet Another Video Site</h1><br>
 
 <br><br>
-<h2>{{ video.title }}</h2>
+<h2>{{ title }}</h2>
 <br>
 
 <h4>Word Cloud:</h4>
@@ -20,7 +20,7 @@ Insights for {{ video.title }}
 
 <br>
 <h4>Predicted Video Category: </h4>
-<p>{% which_category video.sentiment %}</p>
+<p>{{ sentiment }}</p>
 
 {% endblock %}
 

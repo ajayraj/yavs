@@ -16,13 +16,13 @@
 
 <br><br>
 <h2>{{ video.title }}</h2>
-<p>{{ video.description }}</p>
+<h4>{{ video.description }}</h4>
 {% has_insights video.sentiment as video_has_insight %}
 {% if video.sentiment is None %}
     <p>Check back soon! Insight generation in progress...</p><br>
 {% elif video_has_insight == True %}
-    <p style="text-center"><a href='/view_insights/{{ video.id }}'>View Insights</a></p>
-    <br>
+    <br><a href='/view_insights/{{ video.id }}' class="btn btn-primary">View Insights</a>
+    <br><br>
 {% elif video.sentiment == "INSIGHT_NOT_ABLE_TO_GENERATE" %}
     <p>Cannot Generate Insight: Music/No Words Detected</p>
 {% elif video.sentiment == "NO_AUDIO" %}
