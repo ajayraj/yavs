@@ -24,6 +24,11 @@
   background-color: #88CE6CQ!important;
 }
 
+.navbar-brand {
+  position: relative;
+  width: 170px;
+  left: 15px;
+}
 
 body {
     background: #3E4649;
