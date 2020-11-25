@@ -202,7 +202,7 @@ class ViewInsights(View):
         file, extension = os.path.splitext(video_of_insight.path)
         wordcloud_path = media_dir + file + ".png"
         print("PATH THAT WILL BE PASSED TO INSIGHT VIEW: ", wordcloud_path)
-        context = { 'cloud_path': wordcloud_path, 'title': video_of_insight.title }
+        context = { 'cloud_path': wordcloud_path, 'title': video_of_insight.title, 'sentiment': video_of_insight.sentiment }
 
         
         return render(request, self.template_name, context)
