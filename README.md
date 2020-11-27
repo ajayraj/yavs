@@ -5,7 +5,7 @@
 #### Requirements to Deploy
 ###### Frontend: HTML, CSS (Bootstrap)
 ###### Backend: Django (Python), PostgreSQL, NGINX, Gunicorn, Django-RQ (Docker, Redis)
-###### NLP: Python - SpeechRecognition, Spacy, BART + Word Vector models, WordCloud
+###### NLP: Python - SpeechRecognition, Spacy,Word Vector models, WordCloud
 ###### ETC: FFmpeg
 
 ##### Notes:
