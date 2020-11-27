@@ -10,16 +10,16 @@ Insights for {{ title }}
 {% block body %}
 <h2>Insights For {{ title }}:</h2>
 <br>
-<div class="container">
+<div class="container-extend">
 	<div class="row">
 	<div class="col-sm">
 		<h4>Word Cloud:</h4>
 		<br>
-		<img src="{{ cloud_path }}">
+		<img class="wordcloud-pic" src="{{ cloud_path }}">
 	</div>
 	<div class="col-sm">
 		<h4>Predicted Video Category: </h4>
-		<p>{{ sentiment }}</p>
+		<p>{% which_category sentiment %}</p>
 	</div>
 	</div>
 </div>

@@ -5,7 +5,8 @@ Sign In
 {% endblock %}
 
 {% block body %}
-<h1 class="vertical-center top-breather">Welcome Back to YAVS</h1><br>
+<div class="container-extend">
+	<h1 class="vertical-center top-breather"><span class="styled-header">Welcome Back</span> &nbsp;to YAVS</h1><br>
 <br>
 <form action="sign_in" method="POST">
     {% csrf_token %}
@@ -13,5 +14,6 @@ Sign In
     <br>
     <button type="submit" class="btn btn-primary vertical-center top-breather">Sign In</button>
 </form>
+</div>
 {% endblock %}
 

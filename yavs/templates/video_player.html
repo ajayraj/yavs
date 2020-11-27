@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block body %}
-<h1>Yet Another Video Site</h1><br>
 <br><br>
 <video width = "100%" height="auto" controls>
     <source src="{{ video.path }}" type="video/mp4">
@@ -64,11 +63,9 @@
     <form action="/comment" method="POST">
     {% csrf_token %}
 	
-<div class="row top-breather"> 
-		<table class="table vertical-center">{{ form.as_table }}</table>
-		<input type="hidden" name="video" value="{{video.id}}"> </input><br>
-        	<button type="submit" class="btn btn-primary vertical-center">Submit Comment</button>
-</div>
+		<table class="table">{{ form.as_table }}</table>
+		<input type="hidden" name="video" value="{{video.id}}"> </input>
+        	<button type="submit" class="btn btn-primary button-center">Submit Comment</button>
     </form>
 {% else %}
     You must be signed in to add a comment. <br><br>
