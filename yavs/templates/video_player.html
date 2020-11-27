@@ -16,18 +16,16 @@
 
 <br><br>
 {% has_insights video.sentiment as video_has_insight %}
-<div class="container">
-<div class="row"> 
+<div class="row top-breather"> 
 	<div class="col-sm">
 		<h2>{{ video.title }}</h2>
 		<h4>{{ video.description }}</h4>
 	</div>	
 	<div class="col-sm">
 		{% if video_has_insight == True %}
-		<br><a href='/view_insights/{{ video.id }}' class="btn btn-primary">View Insights</a><br><br>
+		<br><a href='/view_insights/{{ video.id }}' class="btn btn-primary ">View Insights</a><br><br>
 		{% endif %}
 	</div>	
-</div>
 </div>
 
 <div class="container">
@@ -41,7 +39,8 @@
 {% else %}
     <p>Check back soon! Insight generation in progress...</p><br>
 {% endif %}
-<br>
+<br><br><br><br>
+<div class="pad-space"></div>
 <h4>Comments:</h4>
 
 {% if not comments %}
@@ -65,18 +64,11 @@
     <form action="/comment" method="POST">
     {% csrf_token %}
 	
-<div class="container">
-<div class="row"> 
-	<div class="col-sm">
-		<table class="table">{{ form.as_table }}</table>
-		<input type="hidden" name="video" value="{{video.id}}"</input>
-	</div>	
-	<div class="col-sm">
-        	<button type="submit" class="btn btn-primary">Submit Comment</button>
-	</div>	
+<div class="row top-breather"> 
+		<table class="table vertical-center">{{ form.as_table }}</table>
+		<input type="hidden" name="video" value="{{video.id}}"> </input><br>
+        	<button type="submit" class="btn btn-primary vertical-center">Submit Comment</button>
 </div>
-</div>
-
     </form>
 {% else %}
     You must be signed in to add a comment. <br><br>
