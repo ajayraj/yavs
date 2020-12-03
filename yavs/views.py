@@ -43,9 +43,9 @@ class UploadVideo(View):
             upload_vid = form.cleaned_data['file']
 
             prefix = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-            pattern = re.compile(r'\s+')
-            stripped_name = re.sub(pattern, '', upload_vid.name)
-            path = prefix + stripped_name
+            #pattern = re.compile(r'\s+')
+            #stripped_name = re.sub(pattern, '', upload_vid.name)
+            path = prefix
 
             
             fs = FileSystemStorage(location = settings.MEDIA_ROOT)
