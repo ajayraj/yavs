@@ -8,21 +8,29 @@
 {% endblock %}
 
 {% block body %}
-<h1>Yet Another Video Site</h1><br>
 <br><br>
-<video width = "1000" height="750" controls>
+<video width = "100%" height="auto" controls>
     <source src="{{ video.path }}" type="video/mp4">
 </video>
 
 <br><br>
-<h2>{{ video.title }}</h2>
-<h4>{{ video.description }}</h4>
 {% has_insights video.sentiment as video_has_insight %}
+<div class="row top-breather"> 
+	<div class="col-sm">
+		<h2>{{ video.title }}</h2>
+		<h4>{{ video.description }}</h4>
+	</div>	
+	<div class="col-sm">
+		{% if video_has_insight == True %}
+		<br><a href='/view_insights/{{ video.id }}' class="btn btn-primary ">View Insights</a><br><br>
+		{% endif %}
+	</div>	
+</div>
+
+<div class="container container-extend">
 {% if video.sentiment is None %}
     <p>Check back soon! Insight generation in progress...</p><br>
 {% elif video_has_insight == True %}
-    <br><a href='/view_insights/{{ video.id }}' class="btn btn-primary">View Insights</a>
-    <br><br>
 {% elif video.sentiment == "INSIGHT_NOT_ABLE_TO_GENERATE" %}
     <p>Cannot Generate Insight: Music/No Words Detected</p>
 {% elif video.sentiment == "NO_AUDIO" %}
@@ -30,7 +38,8 @@
 {% else %}
     <p>Check back soon! Insight generation in progress...</p><br>
 {% endif %}
-
+<br><br><br><br>
+<div class="pad-space"></div>
 <h4>Comments:</h4>
 
 {% if not comments %}
@@ -53,14 +62,22 @@
 {% if user.is_authenticated %}
     <form action="/comment" method="POST">
     {% csrf_token %}
-        <table class="table">{{ form.as_table }}</table>
-        <input type="hidden" name="video" value="{{video.id}}"
-        <br>
-        <button type="submit" class="btn btn-primary">Submit Comment</button>
+	
+		<table class="table">{{ form.as_table }}</table>
+		<input type="hidden" name="video" value="{{video.id}}"> </input>
+        	<button type="submit" class="btn btn-primary button-center">Submit Comment</button>
     </form>
 {% else %}
     You must be signed in to add a comment. <br><br>
 {% endif %}
+
+
+
+
+</div>
+
+
+
 
 {% endblock %}
 

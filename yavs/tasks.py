@@ -81,7 +81,7 @@ def text_analysis(transcribed_content):
 
 def plot_wordcloud(cleaned_string):
     wordcloud = WordCloud(width = 800, height = 800, 
-                          background_color ='white',
+                          background_color ='#595959',
                           stopwords=[],
                           min_font_size = 10).generate(cleaned_string) 
 

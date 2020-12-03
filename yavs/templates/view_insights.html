@@ -8,19 +8,20 @@ Insights for {{ title }}
 {% endblock %}
 
 {% block body %}
-<h1>Yet Another Video Site</h1><br>
-
-<br><br>
-<h2>{{ title }}</h2>
+<h2>Insights For {{ title }}:</h2>
 <br>
-
-<h4>Word Cloud:</h4>
-<br>
-<img src="{{ cloud_path }}">
-
-<br>
-<h4>Predicted Video Category: </h4>
-<p>{{ sentiment }}</p>
-
+<div class="container-extend-long">
+	<div class="row">
+	<div class="col-sm">
+		<h4>Word Cloud:</h4>
+		<br>
+		<img class="wordcloud-pic" src="{{ cloud_path }}">
+	</div>
+	<div class="col-sm">
+		<h4>Predicted Video Category: </h4>
+		<p class="insight">{% which_category sentiment %}</p>
+	</div>
+	</div>
+</div>
 {% endblock %}
 

@@ -1,19 +1,24 @@
 {% extends "parent.html" %}
-
-{% block title %}
-Sign Up
-{% endblock %}
+{% block title %} 
+Sign Up 
+{% endblock %} 
 
 {% block body %}
-<h1>Yet Another Video Site</h1><br>
-Sign Up for YAVS<br>
-{{ serve }}
-<br>
-<form action="sign_up" method="POST">
+<div class="container-extend-long">
+  <h1 class="vertical-center top-breather">
+    <span class="styled-header">Sign Up</span> &nbsp;for YAVS
+  </h1>
+  <br />
+  <br /><br /><br /><br />
+  <form action="sign_up" method="POST">
     {% csrf_token %}
-    <table class="table TABLE-DARK">{{ form.as_table }}</table>
-    <br>
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-</form>
+    <table class="table TABLE-DARK vertical-center top-breather">
+      {{ form.as_table }}
+    </table>
+    <br />
+    <button type="submit" class="btn btn-primary vertical-center top-breather">
+      Sign Up
+    </button>
+  </form>
+</div>
 {% endblock %}
-

@@ -2,12 +2,12 @@ from django import forms
 
 class SignInForm(forms.Form):
     username = forms.CharField(label="Username", max_length=20)
-    password = forms.CharField(label="Password", max_length=48)
+    password = forms.CharField(label="Password", max_length=48, widget=forms.PasswordInput())
 
 class SignUpForm(forms.Form):
     email = forms.CharField(label="Email", max_length=20)
     username = forms.CharField(label="Username", max_length=20)
-    password = forms.CharField(label="Password", max_length=48)
+    password = forms.CharField(label="Password", max_length=48, widget=forms.PasswordInput())
 
 class UploadVideoForm(forms.Form):
     title = forms.CharField(label="Title", max_length=50)

@@ -6,9 +6,9 @@ Home
 {% endblock %}
 
 {% block body %}
-<h1>Yet Another Video Site</h1><br>
-
-<div class="container">
+<h1>Yet <span class="styled-header">Another</span> Video Site</h1><br>
+<br><h3>Recent Uploads:</h3><br>
+<div class="container container-extend">
   <div class="card-columns">
   {% for video in most_recent %}
     <div class="card">

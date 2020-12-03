@@ -6,19 +6,25 @@
         <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
         <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
         <link rel="manifest" href="{% static 'img/site.webmanifest' %}">
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
-
-            <!-- Links -->
-            <ul class="navbar-nav">
-                <img class="navbar-brand" href="/"><img src="{% static 'img/yavs-logo.png' %}" alt="YAVS"></a>
-                <li class="nav-item">
+<nav class="navbar navbar-expand-sm static-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+          <img class="navbar-brand" src="{% static 'img/yavs-logo.png' %}" alt="YAVS" href="/">
+        </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+              	<li class="nav-item">
                     <a class="nav-link {% if request.path == '/' %} active {% endif %}" href="/">Home</a>
-                </li>
+		</li>
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/upload_video' %} active {% endif %}" href="/upload_video">Upload Video</a>
                 </li>
@@ -34,13 +40,18 @@
                     <a class="nav-link {% if request.path == '/sign_up' %} active {% endif %}" href="/sign_up">Sign Up</a>
                 </li>
                 {% endif %}
-          
-          </nav>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-        <br>
-        <div class="container">
+<div class="design-bar"></div>
+<br>
+	<div class="container">
             {% block body %}
             {% endblock %}
-    </div>
+    	</div>
+	<br><br><br>
     </body>
+    <footer class="footer-block"></footer>
 </html>
