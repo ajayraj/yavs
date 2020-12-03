@@ -1,19 +1,20 @@
-{% extends "parent.html" %}
-
-{% block title %}
-Sign Up
-{% endblock %}
-
-{% block body %}
+{% extends "parent.html" %} {% block title %} Sign Up {% endblock %} {% block
+body %}
 <div class="container-extend">
-	<h1 class="vertical-center top-breather"><span class="styled-header">Sign Up</span> &nbsp;for YAVS</h1><br>
-<br><br><br><br>
-   {% csrf_token %}
-    <table class="table TABLE-DARK vertical-center top-breather">{{ form.as_table }}</table>
-    <br>
-	<form action="sign_up" method="POST">
-	    <button type="submit" class="btn btn-primary vertical-center top-breather">Sign Up</button>
-</form>
+  <h1 class="vertical-center top-breather">
+    <span class="styled-header">Sign Up</span> &nbsp;for YAVS
+  </h1>
+  <br />
+  <br /><br /><br /><br />
+  <form action="sign_up" method="POST">
+    {% csrf_token %}
+    <table class="table TABLE-DARK vertical-center top-breather">
+      {{ form.as_table }}
+    </table>
+    <br />
+    <button type="submit" class="btn btn-primary vertical-center top-breather">
+      Sign Up
+    </button>
+  </form>
 </div>
 {% endblock %}
-
