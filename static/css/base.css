@@ -46,14 +46,13 @@
 
 .footer-block {
 	width: 100%;
-	height: 150px;
+	height: 17vh;
 	background-color: #A78DD8;
 	/*background-color: #ffffff;*/
-	position: absolute;
+	position: static;
 	bottom: 0;
 }
 
-html { height: 100%; }
 
 .btn-primary:focus {
   background-color: #88CE6C!important;
@@ -103,8 +102,14 @@ html { height: 100%; }
 .container-extend {
 	display: flex;
 	flex-direction: column;
-	min-height: 73vh;
+	min-height: 65vh;
 }
+.container-extend-long {
+	display: flex;
+	flex-direction: column;
+	min-height: 75vh;
+}
+
 body {
     background: #595959;
     color: #ffffff;
@@ -127,6 +132,10 @@ h3 {
 	color: #E9C9D0;
 }
 
+.insight {
+	font-size: 20px;
+	padding-left: 8rem;
+}
 .accent-green-text {
 	color: #79D2AA;
 }
