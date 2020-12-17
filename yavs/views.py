@@ -206,3 +206,8 @@ class ViewInsights(View):
 
         
         return render(request, self.template_name, context)
+
+class About(View):
+    template_name = "about.html"
+    def get(self, request):
+        return render(request, self.template_name)
