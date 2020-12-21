@@ -12,6 +12,9 @@
   color: #fff!important;
   background-color: #47B066!important;
 }
+.tab {
+  padding-left: 4px;
+}
 
 .pad-space {
 	width: 100%;

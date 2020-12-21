@@ -24,7 +24,7 @@
       <ul class="navbar-nav ml-auto">
               	<li class="nav-item">
                     <a class="nav-link {% if request.path == '/' %} active {% endif %}" href="/">Home</a>
-		</li>
+		            </li>
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/upload_video' %} active {% endif %}" href="/upload_video">Upload Video</a>
                 </li>
@@ -39,10 +39,10 @@
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/sign_up' %} active {% endif %}" href="/sign_up">Sign Up</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                   <a class="nav-link {% if request.path == '/about' %} active {% endif %}" href="/about">About</a>
-              </li>
-                {% endif %}
+                </li>
       </ul>
     </div>
   </div>
