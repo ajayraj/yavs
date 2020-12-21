@@ -8,13 +8,15 @@ About
 <h1>Welcome to Yet <span class="styled-header">Another</span> Video Site!</h1><br>
 <br><h3>About this site:</h3><br>
 <div class="container container-extend">
-    <p>YAVS is built with Python using Django for the backend</p>
+    <p>YAVS is built with Python using Django, PostgreSQL, NGINX, Redis, and Gunicorn for the backend.</p>
+    <p>Frontend is built with HTML and CSS using Bootstrap 4.</p>
     <p>Text transcription is done with SpeechRecognition using Google's engine. Feature currently only works for English content.</p> 
     <p>If unable to transcribe, audio is assumed to be music/too noisy to automatically categorize.</p>
     <p>Processing, training, and classification were done using Spacy and sklearn's SVM's.</p>
     <p>Classification works across the following 11 categories:</p>
     <p><span class="tab">Comedy, Fashion, Food, Gaming, Kid's Entertainment, Lecture/Learning, News, Reviews, Science, Sports, Tech</span></p>
     <p>In progress: an API to send transcribed text queries to in order to classify using my trained model.</p>
+    <p>Thanks for stopping by!</p>
 </div>
 
 {% endblock %}
